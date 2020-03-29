@@ -1,18 +1,20 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[5]:
+
+
+# %load 100_get_tweets.py
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 """
 Created on Thu Nov 22 11:30:51 2018
 
 @author: hduser
 """
+import time
+import arrow
+today_dt = arrow.now().format('YYYYMMDD')
 
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Nov  5 19:05:33 2018
-
-@author: hduser
-"""
 
 # 1 - The purpose of this assignment is to compare the popularity between Python and
 # JavaScript. We will use 2 days’ worth of Twitter data for this.
@@ -48,12 +50,25 @@ access_token_secret = "6n7V6bXhrAcQsYTOj19Vkoq2wsm5Niuyh3YZc0m456bu4"
 consumer_key = "SJLRRqubA7nUjHIZ3KIJRROBZ"
 consumer_secret = "UO4SYnvwLoy6YIaFtp1YqUUwKJ2u6kAiYplRjhPYbudXuBv6Sl"
 
+    
+
+
+# In[ ]:
+
+
+
+
+
+# In[6]:
+
+
+
 
 #This is a basic listener that just prints received tweets to stdout.
 class StdOutListener(StreamListener):
 
     def on_data(self, data):
-        f = open("tweets.json", "a")
+        f = open("tweets." + today_dt + ".json", "a")
         f.write(data)
         f.close()
 
@@ -63,6 +78,12 @@ class StdOutListener(StreamListener):
         print(status)
 
 
+
+# In[7]:
+
+
+
+
 #This handles Twitter authetification and the connection to Twitter Streaming API
 l = StdOutListener()
 auth = OAuthHandler(consumer_key, consumer_secret)
@@ -70,14 +91,23 @@ auth.set_access_token(access_token, access_token_secret)
 stream = Stream(auth, l)
     #This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
 
-  #wtf
+
+# In[11]:
+
+
 import time
 import timeout_decorator
 
-@timeout_decorator.timeout(60)
+@timeout_decorator.timeout(60*10)
 def read_tweets():
     stream.filter(track=['covid', 'coronavirus','covid19','corona virus'])
     print("%d seconds have passed" % i)
 
 read_tweets()    
-    
+
+
+# In[ ]:
+
+
+
+

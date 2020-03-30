@@ -92,13 +92,13 @@ stream = Stream(auth, l)
     #This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
 
 
-# In[11]:
+# In[8]:
 
 
 import time
 import timeout_decorator
 
-@timeout_decorator.timeout(60*10)
+@timeout_decorator.timeout(60*1)
 def read_tweets():
     stream.filter(track=['covid', 'coronavirus','covid19','corona virus'])
     print("%d seconds have passed" % i)
